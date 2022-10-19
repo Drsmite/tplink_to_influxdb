@@ -49,13 +49,7 @@ def main():
     influxes = []
 
     for influx in config["influxdb"]:
-            c = InfluxDBClient(
-                host = influx["host"],
-                port = influx["port"],
-                user = influx["user"],
-                password = influx["password"],
-                database = influx["database"]
-            )
+            c = InfluxDBClient(influx["host"],influx["port"],influx["user"],influx["password"],influx["database"])
             influxes.append({"name": influx['name'],
                              "conn": c
                              })
