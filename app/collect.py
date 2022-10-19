@@ -155,7 +155,7 @@ def buildPointsBuffer(points):
              
         # Build a point 
         dataPoint = {
-            "measurement": "power_watts",
+            "measurement": "Smart_Plugs",
             "tags": {
                 "host": point,
             },
@@ -171,7 +171,7 @@ def buildPointsBuffer(points):
         # If we've captured usage, add a point for that
         if points[point]['today_usage']:
             dataPoint = {
-            "measurement": "power_watts",
+            "measurement": "Smart_Plugs",
             "tags": {
                 "host": point,
             },
@@ -189,11 +189,11 @@ def buildPointsBuffer(points):
 def sendToInflux(influxdb_client, points_buffer):
     ''' Take a set of values, and send them on to InfluxDB
     '''
-    #try:
-    influxdb_client.write_points(points_buffer)
-    #return True
-    #except:
-    #    return False
+    try:
+        influxdb_client.write_points(points_buffer)
+        return True
+    except:
+        return False
 
 
 if __name__ == "__main__":
