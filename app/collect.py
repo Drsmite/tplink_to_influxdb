@@ -51,14 +51,14 @@ def main():
 
     for influx in config["influxdb"]:
             c = influxdb_client.InfluxDBClient(
-                url = influx["url"],
-                token = influx["token"],
-                org = influx["org"]
+                host = influx["host"],
+                port = influx["port"],
+                user = influx["user"],
+                password = influx["password"],
+                database = influx["database"]
             )
             influxes.append({"name": influx['name'],
-                             "bucket": influx["bucket"],
-                             "conn": c,
-                             "org" : influx["org"]
+                             "conn": c
                              })
 
     stats = {}
