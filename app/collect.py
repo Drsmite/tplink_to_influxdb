@@ -16,7 +16,6 @@ import sys
 import time
 import yaml
 
-from influxdb_client.client.write_api import SYNCHRONOUS
 from kasa import SmartPlug
 from PyP100 import PyP110
 
@@ -96,10 +95,7 @@ def main():
     if len(points_buffer) > 0:
         # Iterate through the InfluxDB connections and send the data over
         for dest in influxes:
-            write_api = dest['conn'].write_api(write_options=SYNCHRONOUS)
-            res = sendToInflux(write_api,
-                        dest['bucket'],
-                        dest['org'],
+            res = sendToInflux(dest['conn'],
                         points_buffer
                         )
             if not res:
@@ -163,24 +159,44 @@ def buildPointsBuffer(points):
     
     for point in points:
              
-        # Build a point    
-        p = influxdb_client.Point("power_watts").tag("host", point).field("consumption", float(points[point]['now_usage_w'])).time(points[point]['time'])
-        points_buffer.append(p)
+        # Build a point 
+        json_body = [{
+            "measurement": "power_watts",
+            "tags": {
+                "host": point,
+            },
+            "time": points[point]['time'],
+            "fields": {
+                "consumption": float(points[point]['now_usage_w'])
+            }
+        }]
+        #p = influxdb_client.Point("power_watts").tag("host", point).field("consumption", float(points[point]['now_usage_w'])).time(points[point]['time'])
+        points_buffer.append(json_body)
         
         
         # If we've captured usage, add a point for that
         if points[point]['today_usage']:
-            p = influxdb_client.Point("power_watts").tag("host", point).field("watts_today", int(float(points[point]['today_usage']))).time(points[point]['time'])
-            points_buffer.append(p)
+            json_body = [{
+            "measurement": "power_watts",
+            "tags": {
+                "host": point,
+            },
+            "time": points[point]['time'],
+            "fields": {
+                "watts_today": int(float(points[point]['today_usage']))
+            }
+            }]
+            #p = influxdb_client.Point("power_watts").tag("host", point).field("watts_today", int(float(points[point]['today_usage']))).time(points[point]['time'])
+            points_buffer.append(json_body)
         
     return points_buffer
 
 
-def sendToInflux(write_api, bucket, org, points_buffer):
+def sendToInflux(influxdb_client, points_buffer):
     ''' Take a set of values, and send them on to InfluxDB
     '''
     try:
-        write_api.write(bucket, org, points_buffer)
+        influxdb_client.write_points(points_buffer)
         return True
     except:
         return False
