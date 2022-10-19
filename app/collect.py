@@ -19,7 +19,7 @@ from influxdb import InfluxDBClient
 from kasa import SmartPlug
 from PyP100 import PyP110
 
-CONF_FILE = os.getenv("CONF_FILE", "example/config.yml")
+CONF_FILE = os.getenv("CONF_FILE", "../example/config.yml")
 
 def load_config():
     ''' Read the config file
