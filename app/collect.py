@@ -10,12 +10,12 @@
 #
 
 import asyncio
-import influxdb_client
 import os
 import sys
 import time
 import yaml
 
+from influxdb import InfluxDBClient
 from kasa import SmartPlug
 from PyP100 import PyP110
 
@@ -49,7 +49,7 @@ def main():
     influxes = []
 
     for influx in config["influxdb"]:
-            c = influxdb_client.InfluxDBClient(
+            c = InfluxDBClient(
                 host = influx["host"],
                 port = influx["port"],
                 user = influx["user"],
