@@ -154,7 +154,7 @@ def buildPointsBuffer(points):
     for point in points:
              
         # Build a point 
-        json_body = [{
+        point = {
             "measurement": "power_watts",
             "tags": {
                 "host": point,
@@ -163,14 +163,14 @@ def buildPointsBuffer(points):
             "fields": {
                 "consumption": float(points[point]['now_usage_w'])
             }
-        }]
+        }
         #p = influxdb_client.Point("power_watts").tag("host", point).field("consumption", float(points[point]['now_usage_w'])).time(points[point]['time'])
-        points_buffer.append(json_body)
+        points_buffer.append(point)
         
         
         # If we've captured usage, add a point for that
         if points[point]['today_usage']:
-            json_body = [{
+            point = {
             "measurement": "power_watts",
             "tags": {
                 "host": point,
@@ -179,9 +179,9 @@ def buildPointsBuffer(points):
             "fields": {
                 "watts_today": int(float(points[point]['today_usage']))
             }
-            }]
+            }
             #p = influxdb_client.Point("power_watts").tag("host", point).field("watts_today", int(float(points[point]['today_usage']))).time(points[point]['time'])
-            points_buffer.append(json_body)
+            points_buffer.append(point)
         
     return points_buffer
 
@@ -191,7 +191,7 @@ def sendToInflux(influxdb_client, points_buffer):
     '''
     #try:
     influxdb_client.write_points(points_buffer)
-        #return True
+    #return True
     #except:
     #    return False
 
