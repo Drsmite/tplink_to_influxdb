@@ -6,42 +6,25 @@ tapo:
     # Tapo devices require that you log in with the credentials
     # that you use to log into the app
     #
-    user: "me@mymail.com"
-    passw: "mysecretpass"
+    user: ""
+    passw: ""
     devices:
-        - 
-            name: "washing-machine"
-            ip : 192.168.3.152
-        
-        - 
-            name: "big-fridge"
-            ip : 192.168.3.153
     
 # List kasa devices
 kasa:
     devices:
         - 
-            name: "desk-plug"
-            ip: 192.168.3.150
+            name: "upstairs-fridge"
+            ip: 192.168.1.50
         
-        - 
-            name: "tumble-dryer"
-            ip : 192.168.3.151
-
 
 # InfluxDB outputs
 influxdb:
-    -
-        name: "Cloud"
-        url: "https://foo.example.com"
-        token: "aaabbbccc=="
-        org: "my org"
-        bucket: "telegraf"
-        
     - 
         name: "local"
-        url: "http://192.168.3.84:8086"
-        token: ""
-        org: ""
-        bucket: "testing_db"
+        host: "192.168.1.15"
+        port: "8086"
+        user: "root"
+        password: ""
+        database: "testing_db"
         
