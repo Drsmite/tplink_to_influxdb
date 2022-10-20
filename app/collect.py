@@ -158,7 +158,7 @@ def buildPointsBuffer(points):
              
         # Build a point 
         dataPoint = {
-            "measurement": "Iowatt",
+            "measurement": "Iotawatt",
             #"tags": {
             #    "host": point,
             #},
@@ -174,7 +174,7 @@ def buildPointsBuffer(points):
         # If we've captured usage, add a point for that
         if points[point]['today_usage']:
             dataPoint = {
-            "measurement": "Iowatt",
+            "measurement": "Iotawatt",
             #"tags": {
             #    "host": point,
             #},
