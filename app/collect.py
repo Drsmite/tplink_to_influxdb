@@ -155,13 +155,13 @@ def buildPointsBuffer(points):
              
         # Build a point 
         dataPoint = {
-            "measurement": "Smart_Plugs",
-            "tags": {
-                "host": point,
-            },
+            "measurement": "Iowatt",
+            #"tags": {
+            #    "host": point,
+            #},
             "time": points[point]['time'],
             "fields": {
-                "consumption": float(points[point]['now_usage_w'])
+                point: float(points[point]['now_usage_w'])
             }
         }
         #p = influxdb_client.Point("power_watts").tag("host", point).field("consumption", float(points[point]['now_usage_w'])).time(points[point]['time'])
@@ -171,13 +171,13 @@ def buildPointsBuffer(points):
         # If we've captured usage, add a point for that
         if points[point]['today_usage']:
             dataPoint = {
-            "measurement": "Smart_Plugs",
-            "tags": {
-                "host": point,
-            },
+            "measurement": "Iowatt",
+            #"tags": {
+            #    "host": point,
+            #},
             "time": points[point]['time'],
             "fields": {
-                "watts_today": int(float(points[point]['today_usage']))
+                point+"_wH": int(float(points[point]['today_usage']))
             }
             }
             #p = influxdb_client.Point("power_watts").tag("host", point).field("watts_today", int(float(points[point]['today_usage']))).time(points[point]['time'])
