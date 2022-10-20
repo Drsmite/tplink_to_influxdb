@@ -116,7 +116,10 @@ def poll_kasa(ip):
     #
     
     # Convert from kWh to Wh
-    today_usage = p.emeter_today * 1000
+    try:
+        today_usage = p.emeter_today * 1000
+    except:
+        today_usage =0
     usage_dict = p.emeter_realtime
     
     # Convert to watts
