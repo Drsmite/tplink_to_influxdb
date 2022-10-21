@@ -180,7 +180,7 @@ def buildPointsBuffer(points):
             #},
             "time": points[point]['time'],
             "fields": {
-                point+"_wH": int(float(points[point]['today_usage']))
+                point+"_Wh": int(float(points[point]['today_usage']))
             }
             }
             #p = influxdb_client.Point("power_watts").tag("host", point).field("watts_today", int(float(points[point]['today_usage']))).time(points[point]['time'])
