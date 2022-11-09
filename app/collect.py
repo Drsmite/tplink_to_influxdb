@@ -14,18 +14,20 @@ import os
 import sys
 import time
 import yaml
+import inspect
 
 from influxdb import InfluxDBClient
 from kasa import SmartPlug
 from PyP100 import PyP110
 
-CONF_FILE = os.getenv("CONF_FILE", "example/config.yml")
+dirname = os.path.dirname(inspect.getfile(inspect.currentframe()))
+filename = os.path.join(dirname, '../example/config.yml')
 
 def load_config():
     ''' Read the config file
     
     '''
-    with open(CONF_FILE) as file:
+    with open(filename) as file:
         try:
             config = yaml.safe_load(file)
         except yaml.YAMLError as e:
