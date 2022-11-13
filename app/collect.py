@@ -60,7 +60,11 @@ def main():
     start_time = time.time_ns()
 
     for kasa in config["kasa"]["devices"]:
-        now_usage_w, today_usage = poll_kasa(kasa['ip'])
+        try:
+            now_usage_w, today_usage = poll_kasa(kasa['ip'])
+        except:
+            print(f"Failed to communicate with device {kasa['name']}")
+            continue
         if now_usage_w is False:
             print(f"Failed to communicate with device {kasa['name']}")
             continue
