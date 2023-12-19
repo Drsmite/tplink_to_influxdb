@@ -125,7 +125,7 @@ def poll_kasa(ip):
     try:
         today_usage = p.emeter_today * 1000
     except:
-        today_usage = False
+        today_usage = 0
     usage_dict = p.emeter_realtime
     
     # Convert to watts
