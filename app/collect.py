@@ -71,7 +71,7 @@ def main():
         if today_usage is False:
             today_usage = 1
         
-        #print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage/1000} kWh")
+        print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage/1000} kWh")
         stats[kasa['name']] = {
                 "today_usage" : today_usage,
                 "now_usage_w" : now_usage_w,
