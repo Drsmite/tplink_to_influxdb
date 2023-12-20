@@ -68,8 +68,10 @@ def main():
         if now_usage_w is False:
             print(f"Failed to communicate with device {kasa['name']}")
             continue
+        if today_usage is False:
+            today_usage = 0
         
-        print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage/1000} kWh")
+        #print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage/1000} kWh")
         stats[kasa['name']] = {
                 "today_usage" : today_usage,
                 "now_usage_w" : now_usage_w,
@@ -125,7 +127,7 @@ def poll_kasa(ip):
     try:
         today_usage = p.emeter_today * 1000
     except:
-        today_usage = 0
+        today_usage = False
     usage_dict = p.emeter_realtime
     
     # Convert to watts
