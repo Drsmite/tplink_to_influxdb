@@ -69,7 +69,7 @@ def main():
             print(f"Failed to communicate with device {kasa['name']}")
             continue
         if today_usage is False:
-            today_usage = 0
+            today_usage = 1
         
         #print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage/1000} kWh")
         stats[kasa['name']] = {
