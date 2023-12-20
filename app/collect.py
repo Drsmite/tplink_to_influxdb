@@ -68,7 +68,7 @@ def main():
         if now_usage_w is False:
             print(f"Failed to communicate with device {kasa['name']}")
             continue
-        if today_usage is 0:
+        if today_usage == 0:
             today_usage = 1
         
         print(f"Plug: {kasa['name']} using {now_usage_w}W, today: {today_usage} Wh")
