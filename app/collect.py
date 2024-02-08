@@ -66,8 +66,9 @@ def main():
             print(f"Failed to communicate with device {kasa['name']}")
             continue
         if now_usage_w is False:
-            print(f"Failed to communicate with device {kasa['name']}")
-            continue
+            print(f"Failed to communicate with device {kasa['name']}.  Adding empty entry.")
+            now_usage_w = 0
+        
         if today_usage == 0:
             today_usage = 1
         
