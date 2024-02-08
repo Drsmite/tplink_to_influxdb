@@ -126,12 +126,11 @@ def poll_kasa(ip):
     # Convert from kWh to Wh
     try:
         today_usage = p.emeter_today * 1000
+        usage_dict = p.emeter_realtime
+        now_usage_w = usage_dict["power_mw"] / 1000
     except:
         today_usage = 0
-    usage_dict = p.emeter_realtime
-    
-    # Convert to watts
-    now_usage_w = usage_dict["power_mw"] / 1000
+        now_usage_w = 0
 
     return now_usage_w, today_usage
 
