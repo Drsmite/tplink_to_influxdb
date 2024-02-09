@@ -63,8 +63,9 @@ def main():
         try:
             now_usage_w, today_usage = poll_kasa(kasa['ip'])
         except:
-            print(f"Failed to communicate with device {kasa['name']}")
-            continue
+            print(f"Failed to communicate with device {kasa['name']}.  Adding empty entry.")
+            now_usage_w = 0
+            today_usage = 1
         if now_usage_w is False:
             print(f"Failed to communicate with device {kasa['name']}.  Adding empty entry.")
             now_usage_w = 0
@@ -113,12 +114,12 @@ def poll_kasa(ip):
     
     TODO: need to add some exception handling to this
     '''
-    
+    p = SmartPlug(ip)
+        asyncio.run(p.update())
     # Connect to the plug and receive stats
     try:
-        p = SmartPlug(ip)
-        asyncio.run(p.update())
         
+   
         # emeter_today relies on external connectivity - it uses NTP to keep track of time
         # you need to allow UDP 123 outbound if you're restricting the plug's external connectivity
         # otherwise you'll get 0 or 0.001 back instead of the real value
@@ -129,12 +130,12 @@ def poll_kasa(ip):
         # Convert from kWh to Wh
     
         today_usage = p.emeter_today * 1000
-        usage_dict = p.emeter_realtime
-        now_usage_w = usage_dict["power_mw"] / 1000
+        
     except:
         today_usage = 0
-        now_usage_w = False
 
+    usage_dict = p.emeter_realtime
+    now_usage_w = usage_dict["power_mw"] / 1000
     return now_usage_w, today_usage
 
 
