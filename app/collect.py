@@ -115,7 +115,7 @@ def poll_kasa(ip):
     TODO: need to add some exception handling to this
     '''
     p = SmartPlug(ip)
-        asyncio.run(p.update())
+    asyncio.run(p.update())
     # Connect to the plug and receive stats
     try:
         
