@@ -16,7 +16,30 @@ kasa:
         - 
             name: "upstairs-fridge"
             ip: 192.168.1.50
-        
+        -
+            name: "office-computers"
+            ip: 192.168.1.51
+        -
+            name: "microwave"
+            ip: 192.168.1.52
+        -
+            name: "coffee-station"
+            ip: 192.168.1.53
+        -
+            name: "chest-freezer"
+            ip: 192.168.1.54
+        -
+            name: "toaster-oven"
+            ip: 192.168.1.55
+        -
+            name: "sump-pump"
+            ip: 192.168.1.56
+        -
+            name: "washer"
+            ip: 192.168.1.57
+        -
+            name: "grow-light"
+            ip: 192.168.1.58
 
 # InfluxDB outputs
 influxdb:
@@ -25,6 +48,6 @@ influxdb:
         host: "192.168.1.15"
         port: "8086"
         user: "root"
-        password: ""
-        database: "testing_db"
+        password: "VDZLGRJz37sqyEirQDdUGmGy"
+        database: "grafana"
         
