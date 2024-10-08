@@ -38,7 +38,7 @@ kasa:
             name: "washer"
             ip: 192.168.1.57
         -
-            name: "grow-light"
+            name: "camper"
             ip: 192.168.1.58
 
 # InfluxDB outputs
