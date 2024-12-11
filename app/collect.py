@@ -61,7 +61,7 @@ def main():
 
     for kasa in config["kasa"]["devices"]:
         try:
-            if kasa['user'] and kasa['passw']:
+            if "user" in kasa and "passw" in kasa:
                 now_usage_w, today_usage = poll_kasa(kasa['ip'], kasa['user'], kasa['passw'])
             else:
                 now_usage_w, today_usage = poll_kasa(kasa['ip'])
