@@ -17,7 +17,7 @@ import yaml
 import inspect
 
 from influxdb import InfluxDBClient
-from kasa import SmartPlug
+from kasa import Credentials, SmartPlug
 from PyP100 import PyP110
 
 dirname = os.path.dirname(inspect.getfile(inspect.currentframe()))
@@ -61,7 +61,10 @@ def main():
 
     for kasa in config["kasa"]["devices"]:
         try:
-            now_usage_w, today_usage = poll_kasa(kasa['ip'])
+            if "user" in kasa and "passw" in kasa:
+                now_usage_w, today_usage = poll_kasa(kasa['ip'], kasa['user'], kasa['passw'])
+            else:
+                now_usage_w, today_usage = poll_kasa(kasa['ip'])
         except:
             print(f"Failed to communicate with device {kasa['name']}.  Adding empty entry.")
             now_usage_w = 0
@@ -109,12 +112,14 @@ def main():
                 print(f"Wrote {len(points_buffer)} points to {dest['name']}")
 
         
-def poll_kasa(ip):
+def poll_kasa(ip, user=None, passw=None):
     ''' Poll a TP-Link Kasa smartplug
     
     TODO: need to add some exception handling to this
     '''
     p = SmartPlug(ip)
+    if user and passw:
+        p.credentials = Credentials(user, passw)
     asyncio.run(p.update())
     # Connect to the plug and receive stats
     try:
