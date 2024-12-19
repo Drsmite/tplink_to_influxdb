@@ -43,6 +43,9 @@ kasa:
         -
             name: "TV"
             ip: 192.168.1.63
+        -
+            name: "ego-charger"
+            ip: 192.168.1.64
 
 # InfluxDB outputs
 influxdb:
